@@ -49,7 +49,7 @@ def create_customer():
         "email": request_data['email'],
         "username": request_data['username'],
         "name": request_data['name'],
-        "newsletter_status": request_data['status'],
+        "newsletter_status": request_data['newsletter_status'],
         "trips": []
     }
     for customer in customers:
