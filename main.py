@@ -60,6 +60,31 @@ def create_customer():
     return jsonify(new_customer), 201
 
 
+@app.route('/customer/<string:username>', methods= ['PUT'])
+def update_customer(username):
+    request_data = request.get_json()
+    updated_customer = {
+        "email": request_data['email'],
+        "username": request_data['username'],
+        "name": request_data['name'],
+        "newsletter_status": request_data['newsletter_status'],
+        "trips": []
+    }
+    for customer in customers:
+        if username == customer['username']:
+            customer.update(updated_customer)
+            return jsonify(updated_customer), 200
+
+    new_customer = {
+        "email": request_data['email'],
+        "username": username,
+        "name": request_data['name'],
+        "newsletter_status": request_data['newsletter_status'],
+        "trips": []
+    }
+    customers.append(new_customer)
+    return jsonify(new_customer), 201
+
 @app.route('/customer/<string:username>/trips', methods=['GET'])
 def show_trips(username):
     for customer in customers:
