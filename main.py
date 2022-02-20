@@ -31,7 +31,7 @@ app = Flask(__name__)
 
 @app.route('/customers', methods=['GET'])
 def get_customers():
-    return jsonify(customers), 200
+    return jsonify({"customers": customers}), 200
 
 
 @app.route('/customers/<string:username>', methods=['GET'])
@@ -39,7 +39,7 @@ def get_customer(username):
     for customer in customers:
         if customer["username"] == username:
             return jsonify(customer["username"]), 200
-    return {"message": f"There is no user with username: {username}"}, 404
+    return jsonify({"message": f"There is no user with username: {username}"}), 404
 
 
 @app.route('/customer', methods=['POST'])
