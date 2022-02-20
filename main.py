@@ -85,6 +85,14 @@ def update_customer(username):
     customers.append(new_customer)
     return jsonify(new_customer), 201
 
+@app.route('/customer/<string:username>', methods=['DELETE'])
+def delete_customer(username):
+    for customer in customers:
+        if customer["username"] == username:
+            customers.remove(customer)
+            return jsonify({f'message': f'customer {username} was successfully removed'})
+    return jsonify({"message": "Username not found"}), 404
+
 @app.route('/customer/<string:username>/trips', methods=['GET'])
 def show_trips(username):
     for customer in customers:
